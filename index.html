@@ -11,8 +11,13 @@ function feedback(text,good){let el=$('#feedback');if(el)el.innerHTML=`<div clas
 // BIO MEMORY: Google Sheets-те жарияланған оқу карточкаларын ғана қосу.
 // Apps Script API JSONP callback параметрін қолдауы тиіс.
 const BM_API_URL = 'https://script.google.com/macros/s/AKfycbx9rhl4eIrLAOSQOwdawimAZfAtS98dXYXrq_sGwaisN7edokJsFaUejCgsVVe4oNItkw/exec';
-const BM_TOPIC_NAMES = {'BIO8-001':'Адамның асқорыту жүйесі'};
-const bmOriginalBank = DATA.bank.slice();
+
+const BM_TOPIC_NAMES = {
+  'BIO8-001': 'Адамның асқорыту жүйесі',
+  'BIO8-002': 'Қан және қанайналым жүйесі'
+};
+
+  const bmOriginalBank = DATA.bank.slice();
 let bmLoadSeq = 0;
 function bmStatus(message, status) {
   const box = document.getElementById('bmSync');
