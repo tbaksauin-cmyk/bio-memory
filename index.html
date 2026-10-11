@@ -17,6 +17,19 @@ const BM_TOPIC_NAMES = {
   'BIO8-002': 'Қан және қанайналым жүйесі'
 };
 
+function bmUpdateTopicNames(topics) {
+  if (!Array.isArray(topics)) return;
+
+  topics.forEach(topic => {
+    const id = String(topic.id || '').trim();
+    const name = String(topic.name || '').trim();
+
+    if (id && name) {
+      BM_TOPIC_NAMES[id] = name;
+    }
+  });
+}
+
   const bmOriginalBank = DATA.bank.slice();
 let bmLoadSeq = 0;
 function bmStatus(message, status) {
@@ -28,6 +41,9 @@ function bmAcceptPayload(payload) {
   if (!payload || payload.success !== true || !Array.isArray(payload.cards)) {
     throw new Error('API жауабының пішімі дұрыс емес');
   }
+  
+bmUpdateTopicNames(payload.topics);
+
   const seen = new Set(bmOriginalBank.map(x=>[x.grade,x.q.trim().toLocaleLowerCase('kk'),x.a.trim().toLocaleLowerCase('kk')].join('|')));
   const additions = [];
   for (const row of payload.cards) {
